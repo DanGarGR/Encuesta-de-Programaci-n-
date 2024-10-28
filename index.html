@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta de Programación</title>
+    <link rel="stylesheet" href="Css/Css.css">
+    <script src="./Js/vue3.js"></script>
+</head>
+<body>
+    <div id="componente" class="container">
+        <h1>Encuesta de Programación</h1>
+
+        <div class="programa">
+            <p>¿Disfrutas programar?</p>
+            <label><input type="radio" v-model="legustaPro" value="Sí"> Sí</label>
+            <label><input type="radio" v-model="legustaPro" value="No"> No</label>
+        </div>
+
+        <!-- Si responde 'Sí', mostramos el resto de las preguntas -->
+        <div v-if="legustaPro === 'Sí'">
+            <div class="programa">
+                <p>¿Cuáles lenguajes de programación conoces? (Selecciona todos los que aplican):</p>
+                <select v-model="lenguajesSeleccionados" multiple>
+                    <option>JavaScript</option>
+                    <option>Python</option>
+                    <option>Java</option>
+                    <option>C++</option>
+                    <option>Ruby</option>
+                    <option>PHP</option>
+                    <option>Swift</option>
+                    <option>Kotlin</option>
+                </select>
+            </div>
+
+            <div class="programa">
+                <p>¿Cuántos años tienes de experiencia en programación?</p>
+                <input type="number" v-model="aniosExperiencia" min="0" placeholder="Años de experiencia">
+            </div>
+
+            <div class="programa">
+                <p><strong>¿Cuál es tu objetivo personal en programación?</strong></p>
+                <textarea v-model="objetivoProgramacion" placeholder="Escribe tu objetivo..."></textarea>
+            </div>
+
+            <div class="programa">
+                <p><strong>¿Cuál ha sido tu proyecto favorito hasta ahora?</strong></p>
+                <textarea v-model="proyectoFavorito" placeholder="Describe tu proyecto favorito..."></textarea>
+            </div>
+
+            <button @click="mostrarResultadosFinales">Mostrar resultados</button>
+
+            <div class="resultados" v-if="mostrarResultados">
+                <h3>Resultados de la Encuesta</h3>
+                <p>Te gusta programar: {{ legustaPro }}</p>
+                <p>Lenguajes conocidos: {{ lenguajesSeleccionados.join(', ') }}</p>
+                <p>Años de experiencia: {{ aniosExperiencia }}</p>
+                <p>Objetivo en programación: {{ objetivoProgramacion }}</p>
+                <p>Proyecto favorito: {{ proyectoFavorito }}</p>
+            </div>
+        </div>
+
+        <!-- Si responde 'No', mostramos un mensaje de agradecimiento -->
+        <div v-if="legustaPro === 'No'" class="programa">
+            <p>Gracias por tu participación.</p>
+        </div>
+    </div>
+    <script src="JS/script.js"></script>
+</body>
+</html>
+
